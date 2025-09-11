@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>简单实现 vueRouter | FreddyZhuo学习笔记</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    
+    <meta name="description" content="学习笔记">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.de27fc80.css" as="style"><link rel="preload" href="/blog/assets/js/app.79c0909f.js" as="script"><link rel="preload" href="/blog/assets/js/2.717f5fe2.js" as="script"><link rel="preload" href="/blog/assets/js/1.b9011792.js" as="script"><link rel="preload" href="/blog/assets/js/54.4e23a80b.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.d0b520b2.js"><link rel="prefetch" href="/blog/assets/js/11.57b208cf.js"><link rel="prefetch" href="/blog/assets/js/12.659bd9fb.js"><link rel="prefetch" href="/blog/assets/js/13.bfd810ce.js"><link rel="prefetch" href="/blog/assets/js/14.3d694dae.js"><link rel="prefetch" href="/blog/assets/js/15.e44ea8c4.js"><link rel="prefetch" href="/blog/assets/js/16.a3a0efbf.js"><link rel="prefetch" href="/blog/assets/js/17.dfc85edd.js"><link rel="prefetch" href="/blog/assets/js/18.9ecfa5ea.js"><link rel="prefetch" href="/blog/assets/js/19.03bca726.js"><link rel="prefetch" href="/blog/assets/js/20.ba1be5ea.js"><link rel="prefetch" href="/blog/assets/js/21.d96c5290.js"><link rel="prefetch" href="/blog/assets/js/22.d4e7260a.js"><link rel="prefetch" href="/blog/assets/js/23.d86caa57.js"><link rel="prefetch" href="/blog/assets/js/24.36d005c5.js"><link rel="prefetch" href="/blog/assets/js/25.c57dd074.js"><link rel="prefetch" href="/blog/assets/js/26.c909f6cf.js"><link rel="prefetch" href="/blog/assets/js/27.05f2b93f.js"><link rel="prefetch" href="/blog/assets/js/28.cb31109e.js"><link rel="prefetch" href="/blog/assets/js/29.48011c59.js"><link rel="prefetch" href="/blog/assets/js/3.ddbe0292.js"><link rel="prefetch" href="/blog/assets/js/30.13ab2de6.js"><link rel="prefetch" href="/blog/assets/js/31.372a94e1.js"><link rel="prefetch" href="/blog/assets/js/32.3b0ec911.js"><link rel="prefetch" href="/blog/assets/js/33.443a457d.js"><link rel="prefetch" href="/blog/assets/js/34.e278112f.js"><link rel="prefetch" href="/blog/assets/js/35.baffdc7b.js"><link rel="prefetch" href="/blog/assets/js/36.365786f7.js"><link rel="prefetch" href="/blog/assets/js/37.9c799eca.js"><link rel="prefetch" href="/blog/assets/js/38.02ba2f20.js"><link rel="prefetch" href="/blog/assets/js/39.56c8896d.js"><link rel="prefetch" href="/blog/assets/js/4.e8777cae.js"><link rel="prefetch" href="/blog/assets/js/40.26d24903.js"><link rel="prefetch" href="/blog/assets/js/41.ed6495c5.js"><link rel="prefetch" href="/blog/assets/js/42.cac71b33.js"><link rel="prefetch" href="/blog/assets/js/43.510f9500.js"><link rel="prefetch" href="/blog/assets/js/44.32a94ef4.js"><link rel="prefetch" href="/blog/assets/js/45.9baad725.js"><link rel="prefetch" href="/blog/assets/js/46.751aa685.js"><link rel="prefetch" href="/blog/assets/js/47.3ebf07df.js"><link rel="prefetch" href="/blog/assets/js/48.30db869a.js"><link rel="prefetch" href="/blog/assets/js/49.1d3d779a.js"><link rel="prefetch" href="/blog/assets/js/5.e81da937.js"><link rel="prefetch" href="/blog/assets/js/50.97640c9e.js"><link rel="prefetch" href="/blog/assets/js/51.a5f8e2b9.js"><link rel="prefetch" href="/blog/assets/js/52.20b8a7fd.js"><link rel="prefetch" href="/blog/assets/js/53.b3944563.js"><link rel="prefetch" href="/blog/assets/js/55.9f49c167.js"><link rel="prefetch" href="/blog/assets/js/56.4ef314f3.js"><link rel="prefetch" href="/blog/assets/js/57.1d7f9e89.js"><link rel="prefetch" href="/blog/assets/js/6.df44c65f.js"><link rel="prefetch" href="/blog/assets/js/7.c49dd8a3.js"><link rel="prefetch" href="/blog/assets/js/vendors~docsearch.92fa0d62.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.de27fc80.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">FreddyZhuo学习笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/blog/" class="nav-link router-link-active">
+  博客
+</a></div><div class="nav-item"><a href="https://github.com/hongxinzz/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/blog/" class="nav-link router-link-active">
+  博客
+</a></div><div class="nav-item"><a href="https://github.com/hongxinzz/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>js</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>手写代码</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/blog/write/Jsonp.html" class="sidebar-link">手写一个jsonp</a></li><li><a href="/blog/blog/write/防抖节流.html" class="sidebar-link">防抖和节流</a></li><li><a href="/blog/blog/write/柯里化.html" class="sidebar-link">curry</a></li><li><a href="/blog/blog/write/实现new.html" class="sidebar-link">new关键字</a></li><li><a href="/blog/blog/write/深拷贝.html" class="sidebar-link">深拷贝</a></li><li><a href="/blog/blog/write/promiseAll.html" class="sidebar-link">promise.all</a></li><li><a href="/blog/blog/write/promiseOnce.html" class="sidebar-link">promise.once</a></li><li><a href="/blog/blog/write/promise并发.html" class="sidebar-link">promise并发请求</a></li><li><a href="/blog/blog/write/实现vue路由.html" class="active sidebar-link">vueRouter</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/blog/write/实现vue路由.html#简单实现-vuerouter" class="sidebar-link">简单实现 vueRouter</a></li></ul></li><li><a href="/blog/blog/write/defineProperty.html" class="sidebar-link">vue2.0响应式</a></li><li><a href="/blog/blog/write/单例模式.html" class="sidebar-link">单例模式</a></li><li><a href="/blog/blog/write/发布订阅.html" class="sidebar-link">发布订阅</a></li><li><a href="/blog/blog/write/max-long-chart.html" class="sidebar-link">寻找重复最多的字符</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>浏览器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端工程化</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="简单实现-vuerouter"><a href="#简单实现-vuerouter" class="header-anchor">#</a> 简单实现 vueRouter</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">let</span> _Vue <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">VueRouter</span> <span class="token punctuation">{</span>
+  <span class="token comment">/**
+   *  传入Vue实例
+   * @param {s} Vue
+   */</span>
+  <span class="token keyword">static</span> <span class="token function">install</span><span class="token punctuation">(</span><span class="token parameter">Vue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//1 判断当前插件是否被安装</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>VueRouter<span class="token punctuation">.</span>install<span class="token punctuation">.</span>installed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    VueRouter<span class="token punctuation">.</span>install<span class="token punctuation">.</span>installed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token comment">//2 把Vue的构造函数记录在全局</span>
+    _Vue <span class="token operator">=</span> Vue<span class="token punctuation">;</span>
+    <span class="token comment">//3 把创建Vue的实例传入的router对象注入到Vue实例</span>
+    <span class="token comment">// _Vue.prototype.$router = this.$options.router</span>
+    _Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>router<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token class-name">_Vue</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>$router <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>router<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> options<span class="token punctuation">;</span> <span class="token comment">//设置项</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>routeMap <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// 路由的map  {path:component}</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>data <span class="token operator">=</span> _Vue<span class="token punctuation">.</span><span class="token function">observable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token comment">// 通过vue observable 把插件的data.current 设置为响应式</span>
+      <span class="token literal-property property">current</span><span class="token operator">:</span> <span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//初始化</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createRouteMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 把传入的routes 遍历成键值对</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">initComponent</span><span class="token punctuation">(</span>_Vue<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//初始化我们的组件</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">initEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//绑定事件</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">createRouteMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//遍历所有的路由规则 吧路由规则解析成键值对的形式存储到routeMap中</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>routes<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">route</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>routeMap<span class="token punctuation">[</span>route<span class="token punctuation">.</span>path<span class="token punctuation">]</span> <span class="token operator">=</span> route<span class="token punctuation">.</span>component<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">initComponent</span><span class="token punctuation">(</span><span class="token parameter">Vue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 存一下this</span>
+    <span class="token keyword">const</span> self <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// &lt;router-link to=&quot;path&quot;&gt;path name&lt;/router-link&gt;</span>
+    Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&quot;router-link&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">to</span><span class="token operator">:</span> String<span class="token punctuation">,</span> <span class="token comment">//接受路径</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token function">render</span><span class="token punctuation">(</span><span class="token parameter">h</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// h为vue 提供的虚拟 dom 方法</span>
+        <span class="token comment">//h('Element',attrs,event, slot)</span>
+        <span class="token comment">// h 传入节点、自定义属性、事件、节点的slot</span>
+        <span class="token keyword">return</span> <span class="token function">h</span><span class="token punctuation">(</span>
+          <span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            <span class="token literal-property property">attrs</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token literal-property property">href</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>to<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">on</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token literal-property property">click</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>clickhander<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>$slots<span class="token punctuation">.</span>default<span class="token punctuation">]</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token function">clickhander</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">//  当页面渲染为a标签时  阻止默认事件，并手动更新浏览器地址</span>
+          <span class="token comment">// 注： 不阻止事件会导致浏览器触发刷新事件</span>
+          history<span class="token punctuation">.</span><span class="token function">pushState</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>to<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">// 更新一下当前的路由地址</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span>data<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>to<span class="token punctuation">;</span>
+          e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// &lt;router-view&gt;&lt;/router-view&gt;</span>
+    Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">&quot;router-view&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token function">render</span><span class="token punctuation">(</span><span class="token parameter">h</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 键值对中拿出相应的component</span>
+        <span class="token keyword">const</span> cm <span class="token operator">=</span> self<span class="token punctuation">.</span>routeMap<span class="token punctuation">[</span>self<span class="token punctuation">.</span>data<span class="token punctuation">.</span>current<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">h</span><span class="token punctuation">(</span>cm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">initEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 捕捉浏览器后退事件，更新当前的组件的current</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;popstate&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>current <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>pathname<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/blog/write/promise并发.html" class="prev">
+        promise并发请求
+      </a></span> <span class="next"><a href="/blog/blog/write/defineProperty.html">
+        vue2.0响应式
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/blog/assets/js/app.79c0909f.js" defer></script><script src="/blog/assets/js/2.717f5fe2.js" defer></script><script src="/blog/assets/js/1.b9011792.js" defer></script><script src="/blog/assets/js/54.4e23a80b.js" defer></script>
+  </body>
+</html>
